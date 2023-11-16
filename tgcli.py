@@ -68,15 +68,16 @@ class RawFormatter(HelpFormatter):
 
 def login(args):
     if not args.APIKEY:
-        parser.error('no api key passed')
+        args.APIKEY = input("Enter your Twingate API key: ")
     if not args.TENANT:
-        parser.error('no Network Tenant passed')
+        args.TENANT = input("Enter your Twingate Network Tenant name: ")
     if not args.SESSIONNAME:
         args.SESSIONNAME = DataUtils.RandomSessionNameGenerator()
     AuthLogics.login(args.APIKEY,args.TENANT,args.SESSIONNAME)
 
 def logout(args):
     if not args.SESSIONNAME:
+        print("Cannot get Tenant: Session [{}] does not exist. Try running 'scriptname auth login'.".format(args.SESSIONNAME))
         parser.error('no session name passed')
     AuthLogics.logout(args.SESSIONNAME)
 

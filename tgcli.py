@@ -9,11 +9,12 @@
 #!/usr/bin/env python3
 # don't forget to pip install pandas!
 import argparse
-import sys
 import logging
 import re
+import sys
 import textwrap
-import array
+from getpass import getpass
+
 sys.path.insert(1, './logics')
 sys.path.insert(1, './validators')
 sys.path.insert(1, './libs')
@@ -54,7 +55,7 @@ subparsers = parser.add_subparsers()
 
 # Unabashedly taken from https://stackoverflow.com/a/64102901 so that we can have newlines in our descriptive text.
 
-from argparse import ArgumentParser, HelpFormatter
+from argparse import HelpFormatter
 
 class RawFormatter(HelpFormatter):
     def _fill_text(self, text, width, indent):
@@ -68,15 +69,16 @@ class RawFormatter(HelpFormatter):
 
 def login(args):
     if not args.APIKEY:
-        parser.error('no api key passed')
+        args.APIKEY = getpass("Enter your Twingate API key: ", )
     if not args.TENANT:
-        parser.error('no Network Tenant passed')
+        args.TENANT = input("Enter your Twingate Network Tenant name: ")
     if not args.SESSIONNAME:
         args.SESSIONNAME = DataUtils.RandomSessionNameGenerator()
     AuthLogics.login(args.APIKEY,args.TENANT,args.SESSIONNAME)
 
 def logout(args):
     if not args.SESSIONNAME:
+        print("Cannot get Tenant: Session [{}] does not exist. Try running 'scriptname auth login'.".format(args.SESSIONNAME))
         parser.error('no session name passed')
     AuthLogics.logout(args.SESSIONNAME)
 
@@ -1276,12 +1278,14 @@ mappings_user_res_parser.add_argument('-f','--fqdn',type=str,default="", help='[
 DebugLevels = ["ERROR","DEBUG","WARNING","INFO"]
 if __name__ == '__main__':
     args = parser.parse_args()
+    if not hasattr(args, 'func'):
+        parser.print_help()
+        parser.exit()
     if not args.DEBUGLEVEL.upper() in DebugLevels:
         args.DEBUGLEVEL = DebugLevels[0]
 
     logging.basicConfig(level=getattr(logging, args.DEBUGLEVEL.upper()))
-    #
-    args.func(args) 
+    args.func(args)
     #try:
     #   args.func(args) 
     #except Exception as e:

@@ -1252,7 +1252,9 @@ def user_to_resource_mappings(args):
     if not args.EMAILADDR:
         parser.error('no email address passed')
 
-    MappingsLogics.get_user_mappings(args.OUTPUTFORMAT,args.SESSIONNAME,args.EMAILADDR,args.FQDN)
+    # Ensure the output format is set to JSON if specified in the arguments
+    output_format = 'JSON' if args.OUTPUTFORMAT.upper() == 'JSON' else args.OUTPUTFORMAT
+    MappingsLogics.get_user_mappings(output_format, args.SESSIONNAME, args.EMAILADDR, args.FQDN)
 
 # saccount key show
 mappings_user_res_parser = mappings_subparsers.add_parser('user-resource')

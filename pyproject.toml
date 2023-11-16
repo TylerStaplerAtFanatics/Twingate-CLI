@@ -4,7 +4,7 @@ version = "0.1.0"
 description = ""
 authors = ["Bren Sapience <brendan@twingate.com>"]
 readme = "README.md"
-packages = []
+packages = [{include = "tg_cli", from = "."}]
 
 [tool.poetry.dependencies]
 python = "^3.9"

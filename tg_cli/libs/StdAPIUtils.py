@@ -2,13 +2,13 @@ import requests
 import json
 import sys
 import logging
-import os
-import urllib.parse
+
+from tg_cli.responses import StdResponses
+
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
 sys.path.insert(1, './transformers')
-import DataUtils
-import StdResponses
+from tg_cli.libs import DataUtils
 
 def get_api_call_headers(token):
     DefaultHeaders = {
@@ -21,7 +21,7 @@ def get_api_call_headers(token):
 # Generic API Handler with embedded processing of Output
 def generic_api_call_handler(sessionname,get_res_func,res_data):
         url,tenant = DataUtils.GetUrl(sessionname)
-        TOKEN = DataUtils.GetAuthToken(tenant,sessionname)
+        TOKEN = DataUtils.GetAuthToken(tenant, sessionname)
 
         isSupported,CallType,Headers,Body,variables = get_res_func(TOKEN,res_data)
 

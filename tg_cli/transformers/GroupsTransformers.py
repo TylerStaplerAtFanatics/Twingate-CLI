@@ -1,34 +1,31 @@
-import json
-import pandas as pd
-import logging
-import GenericTransformers
+from tg_cli.transformers import GenericTransformers
 
 def GetAddOrRemoveResourcesAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','resources']
     #GenericTransformers.GetUpdateAsCsvNoNesting()
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'groupUpdate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'groupUpdate', columns)
 
 def GetCreateAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','resources','users']
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'groupCreate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'groupCreate', columns)
 
 def GetAddOrRemoveUsersAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','users']
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'groupUpdate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'groupUpdate', columns)
 
 def GetShowAsCsv(jsonResults):
     columns = ['id','name','isActive','type','users','resources']
-    return GenericTransformers.GetShowAsCsvNoNesting(jsonResults,'group',columns)
+    return GenericTransformers.GetShowAsCsvNoNesting(jsonResults, 'group', columns)
 
 def GetListAsCsv(jsonResults):
     columns = ['id','name','isActive','type','users','resources']
     #return GenericTransformers.GetListAsCsvNoNesting(jsonResults,'groups',columns)
-    return GenericTransformers.GetListAsCsv(jsonResults,columns)
+    return GenericTransformers.GetListAsCsv(jsonResults, columns)
 
 def GetDeleteAsCsv(jsonResults):
     columns = ['ok','error']
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'groupDelete',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'groupDelete', columns)
 
 def AssignPolicyAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','securityPolicy.id','securityPolicy.name','securityPolicy.policyType']
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'groupUpdate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'groupUpdate', columns)

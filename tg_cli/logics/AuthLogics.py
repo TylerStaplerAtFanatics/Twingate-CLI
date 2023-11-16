@@ -1,16 +1,9 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
+
+from tg_cli.libs import DataUtils
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './responses')
-import DataUtils
-import StdResponses
-import AuthResponses
-import logging
-import StdAPIUtils
 
 def login(apikey,tenant,sessionname):
 

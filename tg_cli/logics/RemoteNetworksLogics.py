@@ -1,16 +1,9 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './transformers')
-import DataUtils
-import GenericTransformers
-import RemoteNetworksTransformers
-import StdResponses
-import StdAPIUtils
+from tg_cli.transformers import GenericTransformers, RemoteNetworksTransformers
+from tg_cli.libs import StdAPIUtils
 
 def get_network_list_resources(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

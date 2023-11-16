@@ -1,16 +1,10 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
+
+from tg_cli.transformers import SAccountKeysTransformers
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './transformers')
-import DataUtils
-import GenericTransformers
-import SAccountKeysTransformers
-import StdResponses
-import StdAPIUtils
+from tg_cli.libs import StdAPIUtils
 
 def get_saccount_key_rename_resources(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

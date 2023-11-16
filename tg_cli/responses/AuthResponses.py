@@ -1,14 +1,9 @@
-import requests
-import json
 import sys
-import os
 
 sys.path.insert(1, './libs')
-import DataUtils
-import StdResponses
 
 # don't think the below function is used anymore
-#def Process_Auth_Login_Response(res):
+# def Process_Auth_Login_Response(res):
 #    if(res.status_code==200):
 #        try:
 #            result = json.loads(res.text)

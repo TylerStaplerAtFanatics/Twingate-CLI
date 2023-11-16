@@ -1,8 +1,10 @@
-import json
 import pandas as pd
 import logging
-import GenericTransformers
+from tg_cli.transformers import GenericTransformers
 
+pd.set_option('display.max_columns', None)  # or 1000
+pd.set_option('display.max_rows', None)  # or 1000
+pd.set_option('display.max_colwidth', None)  # or 199
 def GetListAsCsv(jsonResults,columns):
     AllLists = jsonResults
     data = []
@@ -37,34 +39,33 @@ def GetListAsCsv(jsonResults,columns):
             data.append(datarow)
 
     df = pd.DataFrame(data, columns = columns)
-    pd.set_option('display.max_rows', None)
     return df
 
 def GetShowAsCsv(jsonResults):
     columns = ['id','name','isActive','remoteNetwork.id','address.type','address.value','protocols.allowIcmp',
     'protocols.tcp.policy','protocols.udp.policy','isVisible','isBrowserShortcutEnabled']
-    return GenericTransformers.GetShowAsCsvNoNesting(jsonResults,'resource',columns)
+    return GenericTransformers.GetShowAsCsvNoNesting(jsonResults, 'resource', columns)
 
 def GetListAsCsv(jsonResults):
     columns = ['id','name','isActive','remoteNetwork.id','address.type','address.value','access.edges','securityPolicy.id','alias','isVisible','isBrowserShortcutEnabled']
-    return GenericTransformers.GetListAsCsv(jsonResults,columns)
+    return GenericTransformers.GetListAsCsv(jsonResults, columns)
 
 def GetCreateAsCsv(jsonResults):
     columns = ['ok','error','id', 'name']
     #GenericTransformers.GetUpdateAsCsvNoNesting()
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'resourceCreate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'resourceCreate', columns)
 
 def GetDeleteAsCsv(jsonResults):
     columns = ['ok','error']
     #GenericTransformers.GetUpdateAsCsvNoNesting()
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'resourceDelete',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'resourceDelete', columns)
 
 def GetUpdateAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','remoteNetwork.id','remoteNetwork.name','address.type','address.value','alias']
     #GenericTransformers.GetUpdateAsCsvNoNesting()
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'resourceUpdate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'resourceUpdate', columns)
 
 def GetVisibilityUpdateAsCsv(jsonResults):
     columns = ['ok','error','id', 'name','isVisible','isBrowserShortcutEnabled']
     #GenericTransformers.GetUpdateAsCsvNoNesting()
-    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults,'resourceUpdate',columns)
+    return GenericTransformers.GetUpdateAsCsvNoNesting(jsonResults, 'resourceUpdate', columns)

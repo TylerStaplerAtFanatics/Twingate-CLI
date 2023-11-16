@@ -1,17 +1,10 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
+
+from tg_cli.libs import StdAPIUtils
+from tg_cli.transformers import GenericTransformers, ConnectorsTransformers
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './transformers')
-import DataUtils
-import ConnectorsTransformers
-import GenericTransformers
-import StdResponses
-import StdAPIUtils
-
 
 def get_connector_create_resources(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

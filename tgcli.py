@@ -15,26 +15,14 @@ import sys
 import textwrap
 from getpass import getpass
 
-sys.path.insert(1, './logics')
-sys.path.insert(1, './validators')
-sys.path.insert(1, './libs')
-import AuthLogics
-import DevicesLogics
-import ConnectorsLogics
-import RemoteNetworksLogics
-import ServiceAccountsLogics
-import ResourcesLogics
-import UsersLogics
-import GroupsLogics
-import ProtocolValidators
-import ServiceAccountKeyValidators
-import UserValidators
-import GenericValidators
-import DataUtils
-import SAccountKeysLogics
-import SecPoliciesLogics
-import MappingsLogics
+from tg_cli.libs import DataUtils
+from tg_cli.logics import AuthLogics, DevicesLogics, ConnectorsLogics, UsersLogics, GroupsLogics, ResourcesLogics, \
+    RemoteNetworksLogics, ServiceAccountsLogics, SAccountKeysLogics, SecPoliciesLogics, MappingsLogics
+from tg_cli.validators import GenericValidators, UserValidators, ProtocolValidators, ServiceAccountKeyValidators
 
+sys.path.insert(1, 'tg_cli/logics')
+sys.path.insert(1, 'tg_cli/validators')
+sys.path.insert(1, 'tg_cli/libs')
 VERSION="1.0.0"
 
 

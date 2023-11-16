@@ -1,17 +1,9 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
-import array
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './transformers')
-import DataUtils
-import GenericTransformers
-import ResourcesTransformers
-import StdResponses
-import StdAPIUtils
+from tg_cli.transformers import GenericTransformers, ResourcesTransformers
+from tg_cli.libs import StdAPIUtils
 
 def get_resource_update_alias(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

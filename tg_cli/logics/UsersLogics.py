@@ -1,16 +1,9 @@
-import requests
-import json
 import sys
-import os
-import urllib.parse
 
 sys.path.insert(1, './libs')
 sys.path.insert(1, './transformers')
-import DataUtils
-import UsersTransformers
-import GenericTransformers
-import StdResponses
-import StdAPIUtils
+from tg_cli.transformers import GenericTransformers, UsersTransformers
+from tg_cli.libs import StdAPIUtils
 
 def get_user_change_state_resource(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

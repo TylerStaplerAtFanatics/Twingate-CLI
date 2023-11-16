@@ -3,8 +3,6 @@ import sys
 
 import pandas as pd
 
-sys.path.insert(1, './libs')
-sys.path.insert(1, './transformers')
 from tg_cli.libs import StdAPIUtils, TGUtils
 
 

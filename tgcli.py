@@ -20,9 +20,6 @@ from tg_cli.logics import AuthLogics, DevicesLogics, ConnectorsLogics, UsersLogi
     RemoteNetworksLogics, ServiceAccountsLogics, SAccountKeysLogics, SecPoliciesLogics, MappingsLogics
 from tg_cli.validators import GenericValidators, UserValidators, ProtocolValidators, ServiceAccountKeyValidators
 
-sys.path.insert(1, 'tg_cli/logics')
-sys.path.insert(1, 'tg_cli/validators')
-sys.path.insert(1, 'tg_cli/libs')
 VERSION="1.0.0"
 
 

@@ -3,8 +3,6 @@ import sys
 from tg_cli.libs import StdAPIUtils
 from tg_cli.transformers import GenericTransformers, DevicesTransformers
 
-sys.path.insert(1, './libs')
-sys.path.insert(1, './transformers')
 
 def get_device_archive_resources(token,JsonData):
     Headers = StdAPIUtils.get_api_call_headers(token)

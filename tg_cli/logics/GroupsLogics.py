@@ -3,8 +3,6 @@ import sys
 from tg_cli.libs import StdAPIUtils
 from tg_cli.transformers import GenericTransformers
 
-sys.path.insert(1, './libs')
-sys.path.insert(1, './transformers')
 from tg_cli.transformers import GroupsTransformers
 
 def get_group_assign_policy_resources(token,JsonData):

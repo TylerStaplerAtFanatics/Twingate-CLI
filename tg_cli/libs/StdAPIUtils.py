@@ -4,10 +4,6 @@ import sys
 import logging
 
 from tg_cli.responses import StdResponses
-
-sys.path.insert(1, './libs')
-sys.path.insert(1, './responses')
-sys.path.insert(1, './transformers')
 from tg_cli.libs import DataUtils
 
 def get_api_call_headers(token):

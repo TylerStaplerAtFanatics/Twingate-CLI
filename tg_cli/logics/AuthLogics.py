@@ -2,9 +2,6 @@ import sys
 
 from tg_cli.libs import DataUtils
 
-sys.path.insert(1, './libs')
-sys.path.insert(1, './responses')
-
 def login(apikey,tenant,sessionname):
 
     FULLURL = tenant

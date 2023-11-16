@@ -1,7 +1,5 @@
 import sys
 
-sys.path.insert(1, './libs')
-sys.path.insert(1, './transformers')
 from tg_cli.transformers import GenericTransformers, SecurityPoliciesTransformers
 from tg_cli.libs import StdAPIUtils
 

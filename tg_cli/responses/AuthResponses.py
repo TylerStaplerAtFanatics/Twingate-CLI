@@ -1,7 +1,4 @@
 import sys
-
-sys.path.insert(1, './libs')
-
 # don't think the below function is used anymore
 # def Process_Auth_Login_Response(res):
 #    if(res.status_code==200):

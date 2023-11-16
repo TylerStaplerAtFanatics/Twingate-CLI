@@ -173,7 +173,19 @@ def get_user_mappings(outputFormat,sessionname,emailaddr,fqdn):
             else:       
                 print(df_duplicates.to_csv(index=False)) 
 
-        # for DF or JSON (JSON cannot be supported here)
+        # for DF or JSON
+        elif (outputFormat.upper() == "JSON"):
+            print("\nAll Resources available for User:")
+            print(df1.to_json(orient='records'))
+
+            print("\nResources matching FQDN:")
+            print(df_fqdn_matches.to_json(orient='records'))
+
+            print("\nOrdered list of Resources:")
+            print(ordered_list_of_resources.to_json(orient='records'))
+
+            print("\nDuplicate Resources (served by more than 1 Group):")
+            print(df_duplicates.to_json(orient='records'))
         else:
             print("\nAll Resources available for User:")
             if df1.empty:

@@ -1276,12 +1276,14 @@ mappings_user_res_parser.add_argument('-f','--fqdn',type=str,default="", help='[
 DebugLevels = ["ERROR","DEBUG","WARNING","INFO"]
 if __name__ == '__main__':
     args = parser.parse_args()
+    if not hasattr(args, 'func'):
+        parser.print_help()
+        parser.exit()
     if not args.DEBUGLEVEL.upper() in DebugLevels:
         args.DEBUGLEVEL = DebugLevels[0]
 
     logging.basicConfig(level=getattr(logging, args.DEBUGLEVEL.upper()))
-    #
-    args.func(args) 
+    args.func(args)
     #try:
     #   args.func(args) 
     #except Exception as e:

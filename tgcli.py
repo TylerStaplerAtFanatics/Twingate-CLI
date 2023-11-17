@@ -9,30 +9,16 @@
 #!/usr/bin/env python3
 # don't forget to pip install pandas!
 import argparse
-import sys
 import logging
 import re
+import sys
 import textwrap
-import array
-sys.path.insert(1, './logics')
-sys.path.insert(1, './validators')
-sys.path.insert(1, './libs')
-import AuthLogics
-import DevicesLogics
-import ConnectorsLogics
-import RemoteNetworksLogics
-import ServiceAccountsLogics
-import ResourcesLogics
-import UsersLogics
-import GroupsLogics
-import ProtocolValidators
-import ServiceAccountKeyValidators
-import UserValidators
-import GenericValidators
-import DataUtils
-import SAccountKeysLogics
-import SecPoliciesLogics
-import MappingsLogics
+from getpass import getpass
+
+from tg_cli.libs import DataUtils
+from tg_cli.logics import AuthLogics, DevicesLogics, ConnectorsLogics, UsersLogics, GroupsLogics, ResourcesLogics, \
+    RemoteNetworksLogics, ServiceAccountsLogics, SAccountKeysLogics, SecPoliciesLogics, MappingsLogics
+from tg_cli.validators import GenericValidators, UserValidators, ProtocolValidators, ServiceAccountKeyValidators
 
 VERSION="1.0.0"
 
@@ -54,7 +40,7 @@ subparsers = parser.add_subparsers()
 
 # Unabashedly taken from https://stackoverflow.com/a/64102901 so that we can have newlines in our descriptive text.
 
-from argparse import ArgumentParser, HelpFormatter
+from argparse import HelpFormatter
 
 class RawFormatter(HelpFormatter):
     def _fill_text(self, text, width, indent):
@@ -68,15 +54,16 @@ class RawFormatter(HelpFormatter):
 
 def login(args):
     if not args.APIKEY:
-        parser.error('no api key passed')
+        args.APIKEY = getpass("Enter your Twingate API key: ", )
     if not args.TENANT:
-        parser.error('no Network Tenant passed')
+        args.TENANT = input("Enter your Twingate Network Tenant name: ")
     if not args.SESSIONNAME:
         args.SESSIONNAME = DataUtils.RandomSessionNameGenerator()
     AuthLogics.login(args.APIKEY,args.TENANT,args.SESSIONNAME)
 
 def logout(args):
     if not args.SESSIONNAME:
+        print("Cannot get Tenant: Session [{}] does not exist. Try running 'scriptname auth login'.".format(args.SESSIONNAME))
         parser.error('no session name passed')
     AuthLogics.logout(args.SESSIONNAME)
 
@@ -1265,7 +1252,9 @@ def user_to_resource_mappings(args):
     if not args.EMAILADDR:
         parser.error('no email address passed')
 
-    MappingsLogics.get_user_mappings(args.OUTPUTFORMAT,args.SESSIONNAME,args.EMAILADDR,args.FQDN)
+    # Ensure the output format is set to JSON if specified in the arguments
+    output_format = 'JSON' if args.OUTPUTFORMAT.upper() == 'JSON' else args.OUTPUTFORMAT
+    MappingsLogics.get_user_mappings(output_format, args.SESSIONNAME, args.EMAILADDR, args.FQDN)
 
 # saccount key show
 mappings_user_res_parser = mappings_subparsers.add_parser('user-resource')
@@ -1276,12 +1265,14 @@ mappings_user_res_parser.add_argument('-f','--fqdn',type=str,default="", help='[
 DebugLevels = ["ERROR","DEBUG","WARNING","INFO"]
 if __name__ == '__main__':
     args = parser.parse_args()
+    if not hasattr(args, 'func'):
+        parser.print_help()
+        parser.exit()
     if not args.DEBUGLEVEL.upper() in DebugLevels:
         args.DEBUGLEVEL = DebugLevels[0]
 
     logging.basicConfig(level=getattr(logging, args.DEBUGLEVEL.upper()))
-    #
-    args.func(args) 
+    args.func(args)
     #try:
     #   args.func(args) 
     #except Exception as e:

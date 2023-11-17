@@ -1,3 +1,5 @@
+import enum
+
 import requests
 import json
 import sys
@@ -65,3 +67,17 @@ def format_output(json_object,outputFormat,df_transform_func):
         json_formatted_str = json.dumps(json_object, indent=2)
         #print(json_formatted_str)
         return json_formatted_str,json_object
+
+
+class OutputFormat(str, enum.Enum):
+    DF = "DF"
+    CSV = "CSV"
+    JSON = "JSON"
+
+def format_for_printing(df, output_format: OutputFormat):
+    if output_format == OutputFormat.DF:
+        return df
+    elif output_format == OutputFormat.CSV:
+        return df.to_csv(index=False)
+    else:
+        return df.to_json(indent=2, orient="records")

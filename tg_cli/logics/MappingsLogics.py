@@ -218,15 +218,7 @@ def get_user_mappings(outputFormat,sessionname,emailaddr,fqdn):
             print("\nNo conflicting resource definitions found.")
         
     else:
-        if (outputFormat.upper() == "CSV"): 
-            if df1.empty:
-                print("None")
-            else:
-                print(df1.to_csv(index=False))
+        if df1.empty:
+            print("None")
         else:
-            if df1.empty:
-                print("None")
-            else:
-                print(df1)
-
-
+            print(StdAPIUtils.format_for_printing(df1, StdAPIUtils.OutputFormat(outputFormat.upper())))
